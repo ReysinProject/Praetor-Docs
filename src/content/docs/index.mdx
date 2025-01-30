@@ -1,36 +1,101 @@
 ---
-title: Welcome to Starlight
-description: Get started building your docs site with Starlight.
+title: Praetor - Powerful Permission Management for TypeScript
+description: A flexible and type-safe permission management library for TypeScript applications
 template: splash
 hero:
-  tagline: Congrats on setting up a new Starlight project!
+  tagline: Type-safe permission management that made all easier
   image:
     file: ../../assets/houston.webp
   actions:
-    - text: Example Guide
-      link: /guides/example/
+    - text: Getting started
+      link: /guides/getting-started
       icon: right-arrow
-    - text: Read the Starlight docs
-      link: https://starlight.astro.build
-      icon: external
+    - text: GitHub
+      link: https://github.com/ReysinProject/Praetor
+      icon: github
       variant: minimal
 ---
 
 import { Card, CardGrid } from '@astrojs/starlight/components';
 
-## Next steps
+## Why Praetor?
+
+Praetor is a TypeScript-first permission management library that helps you implement complex authorization logic with ease. Define policies and rules to control access between different objects in your application, all with full type safety.
 
 <CardGrid stagger>
-	<Card title="Update content" icon="pencil">
-		Edit `src/content/docs/index.mdx` to see this page change.
-	</Card>
-	<Card title="Add new content" icon="add-document">
-		Add Markdown or MDX files to `src/content/docs` to create new pages.
-	</Card>
-	<Card title="Configure your site" icon="setting">
-		Edit your `sidebar` and other config in `astro.config.mjs`.
-	</Card>
-	<Card title="Read the docs" icon="open-book">
-		Learn more in [the Starlight Docs](https://starlight.astro.build/).
-	</Card>
+    <Card title="Type-Safe Policies" icon="shield">
+        Define your permission policies with TypeScript's type system, catching potential issues at compile time rather than runtime.
+    </Card>
+    <Card title="Flexible Rules" icon="puzzle">
+        Create complex permission rules by combining conditions, roles, and attributes. Rules can be as simple or sophisticated as your needs require.
+    </Card>
+    <Card title="Easy Integration" icon="rocket">
+        Seamlessly integrate with any TypeScript project. Works with popular frameworks like Express, NestJS, and more.
+    </Card>
+    <Card title="Performance First" icon="speed">
+        Optimized evaluation of permission rules with minimal overhead, perfect for high-performance applications.
+    </Card>
+</CardGrid>
+
+## Key Features
+
+<CardGrid stagger>
+    <Card title="Define Policies" icon="document">
+        Create clear, maintainable permission policies that define who can access what in your application.
+    </Card>
+    <Card title="Custom Rules" icon="setting">
+        Build custom rules with conditions that match your business logic perfectly.
+    </Card>
+    <Card title="Permission Checking" icon="check">
+        Easily verify permissions with simple, expressive syntax: `check(user, 'read', document)`.
+    </Card>
+    <Card title="Role Management" icon="users">
+        Implement role-based access control (RBAC) with built-in role management features.
+    </Card>
+</CardGrid>
+
+## Quick Start
+
+```typescript
+import { Client, Policy } from 'praetor';
+
+const client = new Client();
+const RessourcePolicy = new Policy<User, Resource>('resource');
+
+RessourcePolicy.rule('edit', (actor, resource) => {
+    return actor === resource.owner || actor.role === 'admin';
+});
+
+client.register('resource', RessourcePolicy);
+
+const user1 = new User(1, 'user');
+const resource1 = new Resource(1, user1);
+
+if (client.allows('resource', 'edit', user1, resource1)) {
+    console.log('User is allowed to edit the resource.');
+} else {
+    console.log('User is not allowed to edit the resource.');
+}
+```
+
+## Get Started
+
+Ready to add powerful permission management to your TypeScript application?
+
+<CardGrid stagger>
+    <Card title="Installation" icon="add-document">
+        Start by installing Praetor:
+        ```bash
+        npm install praetor
+        ```
+    </Card>
+    <Card title="Documentation" icon="open-book">
+        Check out our comprehensive [documentation](/guides/getting-started) to learn more.
+    </Card>
+    <Card title="Examples" icon="list">
+        Explore our [example projects](/examples) to see Praetor in action.
+    </Card>
+    <Card title="Community" icon="discord">
+        Join our [community](/community) to get help and share your experience.
+    </Card>
 </CardGrid>
