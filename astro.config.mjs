@@ -32,8 +32,5 @@ export default defineConfig({
               './src/tailwind.css',
           ]
       }),
-      tailwind({
-          applyBaseStyles: false,
-      })
     ],
 });
